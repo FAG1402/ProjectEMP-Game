@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project EMP - Blackridge Facility</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-container">
+
+        <main id="screen-home" class="screen active" data-id="home-screen">
+            <div class="bg-placeholder"></div>
+            <img class="bg-main-image" alt="Project EMP background" src="assets/background/ChatGPT Image Jun 7, 2026, 06_03_52 PM.png">
+            
+            <section aria-label="Main menu" class="menu-container">
+                <button type="button" aria-label="Start" class="btn-menu btn-start" onclick="handleMenuAction('start')">
+                    <span class="btn-text">Start</span>
+                </button>
+                <button type="button" aria-label="Settings" class="btn-menu btn-settings" onclick="handleMenuAction('settings')">
+                    <span class="btn-text">Settings</span>
+                </button>
+                <button type="button" aria-label="Credits" class="btn-menu btn-credits" onclick="handleMenuAction('credits')">
+                    <span class="btn-text">Credits</span>
+                </button>
+            </section>
+            
+            <p class="mobile-warning-text">
+                if you are using mobile phone, please rotate your phone or turn into Desktop Display for better experience
+            </p>
+            <img class="tablet-icon" alt="Tablet device icon" src="assets/phone.png">
+        </main>
+
+
+        <main id="screen-settings" class="screen hidden" data-id="settings-screen">
+            <div class="bg-placeholder"></div>
+            <img class="bg-main-image" alt="Background Settings" src="assets/background/ChatGPT Image Jun 7, 2026, 06_10_59 PM.png">
+            
+            <section class="settings-container" aria-labelledby="settings-heading">
+                <header>
+                    <h1 id="settings-heading" class="settings-title"> </h1>
+                    <div class="settings-divider"></div>
+                </header>
+
+                <button type="button" aria-label="Go back" class="btn-back-figma" onclick="bukaLayar('screen-home')">
+                    <img class="back-icon-arrow" alt="" src="assets/button/return.png">
+                </button>
+
+                <div class="setting-row" style="top: 262px;">
+                    <label class="setting-label">Brightness</label>
+                    <div class="slider-wrapper">
+                        <input type="range" id="slider-brightness" class="slider-track" min="0" max="100" step="1" value="100">
+                    </div>
+                    <output id="val-brightness" class="setting-output">100%</output>
+                </div>
+
+                <div class="setting-row" style="top: 386px;">
+                    <label class="setting-label">Volume</label>
+                    <div class="slider-wrapper">
+                        <input type="range" id="slider-volume" class="slider-track" min="0" max="100" step="1" value="100">
+                    </div>
+                    <output id="val-volume" class="setting-output">100%</output>
+                </div>
+
+                <div class="setting-row" style="top: 510px;">
+                    <label class="setting-label">Music</label>
+                    <div class="slider-wrapper">
+                        <input type="range" id="slider-music" class="slider-track" min="0" max="100" step="1" value="100">
+                    </div>
+                    <output id="val-music" class="setting-output">100%</output>
+                </div>
+
+                <div class="hint-row">
+                    <div class="hint-label">Hint</div>
+                    <button type="button" role="switch" id="btn-toggle-hint" class="toggle-switch hint-on" onclick="toggleHintFigma()">
+                        <span class="toggle-track"></span>
+                        <span class="toggle-thumb"></span>
+                    </button>
+                    <div id="hint-status" class="hint-status-text">ON</div>
+                </div>
+            </section>
+        </main>
+
+        <main id="screen-credits" class="screen hidden" data-id="credits-screen">
+            <div class="bg-placeholder"></div>
+            <img class="bg-main-image" alt="Background Credits" src="assets/background/ChatGPT Image Jun 7, 2026, 06_15_05 PM.png">
+    
+            <button type="button" aria-label="Go back" class="btn-back-figma" onclick="bukaLayar('screen-home')">
+                <img class="back-icon-arrow" alt="Return" src="assets/button/return.png">
+            </button>
+
+            <section class="credits-container" aria-labelledby="credits-title">
+                <h1 id="credits-title" class="credits-title">Created By Group 5</h1>
+        
+                <div class="credits-col-left">
+                    <div class="credit-item">
+                        <p class="credit-label">Game Director, UI/UX Designer, Lead Programmer :</p>
+                        <p class="credit-val-red">Fhatur Aziz Gustiyana</p>
+                    </div>
+                    <div class="credit-item">
+                        <p class="credit-label">Special Thanks to :</p>
+                        <p class="credit-val-yellow">Resa Pramudita, S.Pd., M.T.</p>
+                    </div>
+                    <div class="credit-item">
+                        <p class="credit-label">Co-Programmer:</p>
+                        <p class="credit-val-cyan">Gemini AI</p>
+                    </div>
+                    <div class="credit-item">
+                        <p class="credit-label">Environment Visual Assets :</p>
+                        <p class="credit-val-cyan">ChatGPT</p>
+                    </div>
+                </div>
+
+            <div class="credits-col-right">
+                <div class="credit-item w-448">
+                    <p class="credit-label">Game Idea :</p>
+                   <p class="credit-val-red">Falatehan Ramadhan Fahmi</p>
+                </div>
+                <div class="credit-item w-448">
+                    <p class="credit-label">Production Support :</p>
+                    <p class="credit-val-red">Jekki Hatigoran Hutabarat</p>
+                </div>
+                <div class="credit-item w-448">
+                    <p class="credit-label">General Members :</p>
+                    <p class="credit-val-red">Januari Putra Mulyono</p>
+                    <p class="credit-val-red">M. Calvin Alfarisi</p>
+                </div>
+            </div>
+
+            <div class="credits-bgm">
+                <div class="credit-item">
+                    <p class="credit-label">BGM & SFX :</p>
+                    <p class="credit-val-orange">Youtube</p>
+                    <p class="credit-val-orange">Freesound</p>
+                </div>
+            </div>
+            </section>
+        </main>
+        
+        <main id="screen-loading" class="screen hidden" data-id="loading-screen">
+            <div class="bg-placeholder"></div>
+            <img class="bg-main-image" alt="Background Loading" src="assets/background/ChatGPT Image Jun 7, 2026, 06_27_45 PM.png">
+    
+            <div style="position: absolute; inset: 0; background-color: rgba(0,0,0,0.6); z-index: 0;"></div>
+    
+            <div class="prologue-container" style="z-index: 1;">
+                <p id="prologue-text" class="typewriter-text"></p>
+                <button id="btn-skip-prologue" class="btn-continue hidden" onclick="masukMap1()">
+                    > Klik untuk Melanjutkan <
+                </button>
+            </div>
+
+            <section class="loading-ui-container" style="z-index: 1;">
+                <h2 id="loading-text" class="loading-text">INITIALIZING SYSTEM... 0%</h2>
+                <div class="loading-bar-track">
+                    <div id="loading-fill" class="loading-bar-fill"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

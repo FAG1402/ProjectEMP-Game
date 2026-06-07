@@ -1,0 +1,492 @@
+/* =========================================
+   1. PENGATURAN GLOBAL & AUTO-SCALE
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none; /* Mencegah teks terblokir tidak sengaja */
+}
+
+body {
+    background-color: black;
+    overflow: hidden; 
+    margin: 0;
+    padding: 0;
+}
+
+/* WADAH UTAMA GAME */
+#game-container {
+    position: absolute; /* Ubah jadi absolute */
+    top: 0;
+    left: 0;
+    width: 1920px; 
+    height: 1080px; 
+    background-color: #000;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); 
+}
+
+/* PENGATURAN TRANSISI LAYAR UTAMA */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.active {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 10;
+}
+
+/* =========================================
+   2. UI HOMEPAGE
+   ========================================= */
+.bg-placeholder {
+    position: absolute;
+    inset: 0;
+    background-color: #d9d9d9;
+    z-index: -2;
+}
+
+.bg-main-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.menu-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none; 
+}
+
+/* Gaya Tombol Industri */
+.btn-menu {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: all;
+    background-color: rgba(18, 52, 86, 0.6); 
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-menu:hover {
+    background-color: rgba(30, 80, 130, 0.85);
+    border-color: #ffffff;
+    transform: scale(1.03);
+}
+
+.btn-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 48px;
+    text-align: center;
+}
+
+/* Posisi Tombol Spesifik (Sesuai Figma) */
+.btn-start { top: 480px; left: calc(50% + 381px); width: 396px; height: 88px; }
+.btn-settings { top: 598px; left: calc(50% + 381px); width: 396px; height: 88px; }
+.btn-credits { top: 711px; left: calc(50% + 381px); width: 398px; height: 88px; }
+
+/* Warning Text & Icon */
+.mobile-warning-text {
+    position: absolute;
+    right: 183px;
+    bottom: 170px;
+    width: 644px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 20px;
+    text-align: right;
+}
+
+.tablet-icon {
+    position: absolute;
+    top: 817px;
+    left: 1737px;
+    width: 124px;
+    height: 124px;
+}
+
+/* =========================================
+   3. UI SETTINGS
+   ========================================= */
+.settings-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none; 
+}
+
+.settings-title {
+    position: absolute;
+    top: 47px;
+    left: 46px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 48px;
+    margin: 0;
+}
+
+.settings-divider {
+    position: absolute;
+    top: 196px;
+    left: 62px;
+    width: 1796px;
+    height: 8px;
+    background-color: #ffffff;
+}
+
+/* Gaya Kotak Tombol (Gantiin gambar biru yang dihapus) */
+.btn-back-figma {
+    position: absolute;
+    top: 97px;
+    left: 1772px;
+    width: 72px;
+    height: 72px;
+    cursor: pointer;
+    pointer-events: all;
+    
+    /* Background abu-abu transparan ala kaca buram */
+    background-color: rgba(100, 100, 100, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    
+    /* Bikin gambar panah di dalamnya otomatis ke tengah */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-back-figma:hover {
+    background-color: rgba(150, 150, 150, 0.6);
+    border-color: #ffffff;
+    transform: scale(1.1);
+}
+
+/* Gaya Gambar Panahnya */
+.back-icon-arrow {
+    width: 50px; /* Ukuran disesuaikan biar pas di dalam kotak 72px */
+    height: 50px;
+    pointer-events: none;
+    
+    /* Kalau gambar panahmu aslinya masih agak kebiruan, 
+       baris ini akan memaksanya jadi abu-abu cerah/putih */
+    filter: grayscale(100%) brightness(200%);
+}
+
+/* Sliders */
+.setting-row { position: absolute; left: 0; width: 100%; }
+.setting-label {
+    position: absolute;
+    left: 77px;
+    width: 271px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 48px;
+}
+
+.slider-wrapper {
+    position: absolute;
+    left: 438px;
+    width: 1275px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    pointer-events: all;
+}
+
+.slider-track {
+    width: 1275px;
+    height: 43px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    background: transparent;
+}
+.slider-track::-webkit-slider-runnable-track {
+    width: 1275px;
+    height: 8px;
+    border-radius: 999px;
+    background: transparent; 
+}
+.slider-track::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -17px;
+    width: 43px;
+    height: 43px;
+    border-radius: 999px;
+    background: #ffffff;
+}
+
+.setting-output {
+    position: absolute;
+    left: 1758px;
+    width: 100px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 36px;
+    top: 6px;
+}
+
+/* Toggle Hint */
+.hint-row { position: absolute; top: 615px; left: 0; width: 100%; }
+.hint-label {
+    position: absolute;
+    left: 79px;
+    width: 271px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 48px;
+    top: 19px;
+}
+
+.toggle-switch {
+    position: absolute;
+    left: 438px;
+    width: 103px;
+    height: 103px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.toggle-track {
+    position: absolute;
+    top: 19px;
+    left: 0;
+    width: 103px;
+    height: 65px;
+    border-radius: 999px;
+    border: 4px solid #ffffff;
+}
+.toggle-thumb {
+    position: absolute;
+    top: 30px;
+    height: 43px;
+    width: 43px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.toggle-switch.hint-on { opacity: 1; }
+.toggle-switch.hint-on .toggle-thumb { left: 51px; }
+.toggle-switch.hint-off { opacity: 0.8; }
+.toggle-switch.hint-off .toggle-thumb { left: 10px; }
+
+.hint-status-text {
+    position: absolute;
+    top: 23px;
+    left: 577px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 40px;
+}
+
+/* =========================================
+   4. UI CREDITS
+   ========================================= */
+.credits-container {
+    position: absolute;
+    top: 233px;
+    left: 383px;
+    width: 1160px;
+    height: 703px;
+    pointer-events: none; /* Biar tidak memblokir tombol jika tumpang tindih */
+}
+
+.credits-title {
+    position: absolute;
+    top: 0;
+    left: 226px;
+    width: 626px;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 64px;
+    text-align: center;
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* Pengaturan Flexbox untuk Kolom Kiri */
+.credits-col-left {
+    position: absolute;
+    top: 151px;
+    left: 0;
+    width: 452px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px; /* Jarak antar divisi di kiri */
+}
+
+/* Pengaturan Flexbox untuk Kolom Kanan */
+.credits-col-right {
+    position: absolute;
+    top: 151px;
+    left: 706px;
+    width: 454px;
+    height: 392px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px; /* Jarak antar anggota di kanan */
+}
+
+/* Posisi Absolut Spesifik untuk BGM */
+.credits-bgm {
+    position: absolute;
+    top: 564px;
+    left: 706px;
+    width: 448px;
+}
+
+/* Pengaturan Teks Umum */
+.credit-item {
+    font-weight: bold;
+    font-size: 32px;
+    line-height: normal;
+    letter-spacing: 0;
+}
+
+.w-448 {
+    width: 448px;
+}
+
+.credit-label {
+    color: #ffffff;
+}
+
+/* Konfigurasi Palet Warna Nama */
+.credit-val-red { color: #ff0000; }
+.credit-val-yellow { color: #ffcb00; }
+.credit-val-cyan { color: #00ccff; }
+.credit-val-orange { color: #ff8300; }
+
+/* =========================================
+   5. UI LOADING SCREEN
+   ========================================= */
+.loading-ui-container {
+    position: absolute;
+    bottom: 180px; /* Jarak dari bawah layar */
+    left: 50%;
+    transform: translateX(-50%); /* Posisi presisi di tengah horisontal */
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.loading-text {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 5px; /* Spasi antar huruf dilebarkan biar dramatis */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+/* Rel/Jalur Bar Loading */
+.loading-bar-track {
+    width: 100%;
+    height: 24px;
+    background-color: rgba(50, 50, 50, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(4px);
+}
+
+/* Isi Bar Loading (Yang bergerak) */
+.loading-bar-fill {
+    width: 0%; /* Ukuran awal selalu 0 */
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 0 15px #ffffff; /* Efek menyala */
+    /* Transisi linear agar pergerakannya mulus walau angkanya random */
+    transition: width 0.2s linear; 
+}
+
+/* =========================================
+   6. UI PROLOGUE (Cerita Pembuka)
+   ========================================= */
+/* Container cerita dibikin transparan biar background gamenya kelihatan */
+.prologue-container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 250px;
+    pointer-events: none;
+    z-index: 1; /* Pastikan di atas overlay hitam */
+}
+
+.typewriter-text {
+    color: #ffffff;
+    font-size: 32px;
+    line-height: 1.8;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 255, 255, 0.3);
+    min-height: 250px;
+    white-space: pre-wrap;
+}
+
+.btn-continue {
+    pointer-events: all; 
+    margin-top: 40px;
+    background: none;
+    border: none;
+    color: #888888;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    animation: kedip 1.5s infinite;
+    position: relative; 
+    z-index: 100; 
+}
+
+.btn-continue.hidden {
+    pointer-events: none;
+    display: none; /* Tambahkan display none biar benar-benar hilang */
+}
+
+.btn-continue:hover {
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+@keyframes kedip {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
