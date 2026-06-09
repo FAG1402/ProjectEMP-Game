@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@keyframes kedip {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.animate-kedip {
+  animation: kedip 1.5s infinite;
+}
