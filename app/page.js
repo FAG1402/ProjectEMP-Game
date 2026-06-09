@@ -8,9 +8,11 @@ import LoadingScreen from "../components/LoadingScreen";
 
 export default function GameContainer() {
   const [activeScreen, setActiveScreen] = useState("home");
-  const [scale, setScale] = useState(1);
+  
+  // State untuk menyimpan skala dan posisi X, Y
+  const [transformData, setTransformData] = useState({ scale: 1, x: 0, y: 0 });
 
-  // ENGINE AUTO-SCALER (Versi React)
+  // ENGINE AUTO-SCALER (Sama persis dengan logika script.js asli milikmu)
   useEffect(() => {
     const handleResize = () => {
       const lebarLayar = window.innerWidth;
@@ -18,16 +20,23 @@ export default function GameContainer() {
       
       const skalaLebar = lebarLayar / 1920;
       const skalaTinggi = tinggiLayar / 1080;
-      // Mengambil skala terkecil agar tidak terpotong (fit to screen)
       const skalaFinal = Math.min(skalaLebar, skalaTinggi);
-      
-      setScale(skalaFinal);
+
+      // Menghitung sisa ruang kosong untuk menempatkan game tepat di tengah
+      const posisiX = (lebarLayar - (1920 * skalaFinal)) / 2;
+      const posisiY = (tinggiLayar - (1080 * skalaFinal)) / 2;
+
+      setTransformData({
+        scale: skalaFinal,
+        x: posisiX,
+        y: posisiY
+      });
     };
 
-    // Jalankan sekali saat komponen di-mount
+    // Eksekusi saat layar pertama kali dimuat
     handleResize();
 
-    // Dengarkan perubahan ukuran layar (resize)
+    // Dengarkan perubahan ukuran layar
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -38,16 +47,16 @@ export default function GameContainer() {
   };
 
   return (
-    // Wadah terluar memakan seluruh layar browser
-    <div className="relative w-screen h-screen flex items-center justify-center bg-black overflow-hidden">
+    // Wadah terluar dengan overflow-hidden mutlak
+    <div className="relative w-screen h-screen bg-black overflow-hidden">
       
-      {/* Wadah Game: Di-lock ke 1920x1080, lalu di-scale pakai CSS Transform */}
+      {/* Wadah Game: Ukuran dipaku di 1920x1080, posisi origin dari pojok kiri atas (0 0) */}
       <div 
-        className="relative bg-black shadow-[0_0_20px_rgba(255,255,255,0.1)] overflow-hidden origin-center transition-transform duration-75"
+        className="absolute top-0 left-0 origin-top-left transition-transform duration-75"
         style={{ 
           width: '1920px', 
           height: '1080px', 
-          transform: `scale(${scale})` 
+          transform: `translate(${transformData.x}px, ${transformData.y}px) scale(${transformData.scale})` 
         }}
       >
         
